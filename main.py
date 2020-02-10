@@ -5,13 +5,13 @@ auth = tweepy.OAuthHandler()
 auth.set_access_token()
 
 api = tweepy.API(auth)
-user = api.get_user(screen_name='@TTCAlerts1_2')
+user = api.get_user(screen_name='@TTCLine1')
 print("User id:" + str(user.id))
 
 
 class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        if re.search("^((?!@).)*$", status.text) and re.search("L|line 1", status.text):
+        if re.search("^((?!@).)*$", status.text) and re.search("[lL]ine 1", status.text):
             try:
                 print(status.text)
                 retweet(status.id_str)
