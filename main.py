@@ -1,15 +1,19 @@
 import tweepy
 import re
 
+auth = tweepy.OAuthHandler()
+auth.set_access_token()
 
 api = tweepy.API(auth)
-user = api.get_user(screen_name='@TTCLine1')
+user = api.get_user(screen_name='@TTCAlerts1_2')
+print("User id:" + str(user.id))
 
 
 class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
-        if re.search("^((?!@).)*$", status.text) and re.search("[lL]ine 1", status.text):
+        if re.search("^((?!@).)*$", status.text) and re.search("L|line 1", status.text):
             try:
+                print(status.text)
                 retweet(status.id_str)
             except tweepy.TweepError as e:
                 print(e)
@@ -17,10 +21,6 @@ class StreamListener(tweepy.StreamListener):
     def on_error(self, status_code):
         if status_code == 420:
             return False
-
-    def on_exception(self, exception):
-        print(exception)
-        return
 
 
 def retweet(id_string):
