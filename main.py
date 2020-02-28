@@ -2,7 +2,7 @@ import tweepy
 import re
 
 auth = tweepy.OAuthHandler('', '')
-auth.set_access_token('-',
+auth.set_access_token('',
                       '')
 
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
